@@ -1,0 +1,1972 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: Cisco IoT Control Center API
+  description: A Python client for the Cisco IoT Control Center (Jasper) REST API.
+  license:
+    name: Apache-2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+security:
+  - basicAuth: []
+tags:
+  - name: Users
+paths:
+  /v{apiVersion}/eventplan/{iccid}:
+    put:
+      tags:
+        - Assign Event Rate Plan to Device
+      summary: Triggers activation of an event for a device on the effective date
+      description: ""
+      operationId: activateTerminalEvent
+      parameters:
+        - in: path
+          name: apiVersion
+          description: Defaults to 1
+          required: true
+          schema:
+            type: string
+            default: "1"
+        - in: path
+          name: iccid
+          description: ICCID of the device
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ActivateTerminalEventRequest'
+        description: Triggers event activation for a device at the current date and time if no effectiveDate is provided.
+        required: true
+      responses:
+        "200":
+          description: Success
+        "400":
+          description: Invalid request
+        "401":
+          description: Invalid credentials
+        "403":
+          description: Forbidden
+        "404":
+          description: Resource not found
+        "500":
+          description: Server Error
+    get:
+      tags:
+        - Get Event Rate Plans Assigned to Device
+      summary: List of currently active and future-dated event plans for device.
+      description: ""
+      operationId: getTerminalEvents
+      parameters:
+        - in: path
+          name: apiVersion
+          description: Defaults to 1
+          required: true
+          schema:
+            type: string
+            default: "1"
+        - in: path
+          name: iccid
+          description: ICCID of the device
+          required: true
+          schema:
+            type: string
+        - in: query
+          name: pageSize
+          description: Maximum of 50, defaults to 50
+          required: false
+          schema:
+            type: integer
+            default: "50"
+        - in: query
+          name: pageNumber
+          description: Defaults to 1
+          required: false
+          schema:
+            type: integer
+            default: "1"
+      responses:
+        "200":
+          description: Success
+        "400":
+          description: Invalid request
+        "401":
+          description: Invalid credentials
+        "403":
+          description: Forbidden
+        "404":
+          description: Resource not found
+        "500":
+          description: Server Error
+  /v{apiVersion}/customers/{customerId}:
+    get:
+      tags:
+        - Customers
+      summary: Get details for a given customerId
+      description: Get details for a given customerId
+      operationId: getCustomerDetails
+      parameters:
+        - name: customerId
+          in: path
+          description: Customer Id
+          required: true
+          schema:
+            type: string
+        - name: apiVersion
+          in: path
+          description: Defaults to 1
+          required: true
+          schema:
+            type: string
+            default: "1"
+      responses:
+        "200":
+          description: Success
+        "400":
+          description: Invalid request
+        "401":
+          description: Bad credentials
+        "404":
+          description: Resource not found
+        "500":
+          description: Server error
+    put:
+      tags:
+        - Customers
+      summary: Edits a customer
+      description: Edits a customer
+      operationId: updateCustomer
+      parameters:
+        - name: customerId
+          in: path
+          description: Customer Id
+          required: true
+          schema:
+            type: string
+        - name: apiVersion
+          in: path
+          description: Defaults to 1
+          required: true
+          schema:
+            type: string
+            default: "1"
+      requestBody:
+        $ref: '#/components/requestBodies/CustomerDTO'
+      responses:
+        "200":
+          description: Success
+        "400":
+          description: Invalid request
+        "401":
+          description: Bad credentials
+        "404":
+          description: Resource not found
+        "500":
+          description: Server error
+  /v{apiVersion}/customers:
+    post:
+      tags:
+        - Customers
+      summary: Creates a customer
+      description: Creates a customer
+      operationId: createCustomer
+      parameters:
+        - name: apiVersion
+          in: path
+          description: Defaults to 1
+          required: true
+          schema:
+            type: string
+            default: "1"
+      requestBody:
+        $ref: '#/components/requestBodies/CustomerDTO'
+      responses:
+        "200":
+          description: Success
+        "400":
+          description: Invalid request
+        "401":
+          description: Bad credentials
+        "404":
+          description: Resource not found
+        "500":
+          description: Server error
+  /v{apiVersion}/echo/{param}:
+    get:
+      tags:
+        - Echo
+      summary: Simply returns a parameter passed by the client.
+      description: ""
+      operationId: getMsg
+      parameters:
+        - name: param
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: apiVersion
+          in: path
+          description: Defaults to 1
+          required: true
+          schema:
+            type: string
+            default: "1"
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Hello'
+  /v{apiVersion}/devices/{iccid}:
+    put:
+      tags:
+        - Edit Device
+      summary: Modify any device attributes such as Status, Rate Plan, Communication Plan, Custom Fields and other identifiers.
+      description: ""
+      operationId: editDevice
+      parameters:
+        - name: iccid
+          in: path
+          description: ICCID
+          required: true
+          schema:
+            type: string
+        - name: apiVersion
+          in: path
+          description: Defaults to 1
+          required: true
+          schema:
+            type: string
+            default: "1"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeviceEditModel'
+        description: At least one parameter is required
+        required: true
+      responses:
+        "200":
+          description: Success
+        "202":
+          description: Accepted
+        "400":
+          description: Invalid request
+        "401":
+          description: Invalid credentials
+        "404":
+          description: Resource not found
+        "500":
+          description: Server Error
+    get:
+      tags:
+        - Get Device Details
+      summary: Return detailed information for a given device.
+      description: ""
+      operationId: getDeviceByIccid
+      parameters:
+        - name: iccid
+          in: path
+          description: ICCID
+          required: true
+          schema:
+            type: string
+        - name: apiVersion
+          in: path
+          description: Defaults to 1
+          required: true
+          schema:
+            type: string
+            default: "1"
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeviceDetails'
+        "400":
+          description: Invalid request
+        "401":
+          description: Bad credentials
+        "404":
+          description: Resource not found
+        "500":
+          description: Server error
+  /v{apiVersion}/editeventplan/{iccid}:
+    put:
+      tags:
+        - Edit Event Rate Plans Assigned to Device
+      summary: Cancel Pending Events for device
+      operationId: editEventInstances
+      parameters:
+        - in: path
+          name: apiVersion
+          required: true
+          schema:
+            type: string
+            default: "1"
+        - in: path
+          name: iccid
+          description: ICCID of the device
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EditEventInstancesRequest'
+        description: Either of the parameters eventID or eventName is required to cancel pending events
+        required: true
+      responses:
+        "200":
+          description: Success
+        "400":
+          description: Invalid request
+        "401":
+          description: Invalid credentials
+        "403":
+          description: Forbidden
+        "404":
+          description: Resource not found
+        "500":
+          description: Server Error
+  /v{apiVersion}/dynareport/acct/usage:
+    get:
+      tags:
+        - Get list of Aggregated Usage Details Group by Carrier, Country, RatePlan, RatingZone for given account.
+      summary: Return list of Aggregated Usage Details Group by Carrier, Country, RatePlan, RatingZone for given account.
+      description: ""
+      operationId: getAggregatedUsageByAccount
+      parameters:
+        - name: startDate
+          in: query
+          description: 'Start Date. The format is yyyyMMDD. Example: 20240624'
+          required: false
+          schema:
+            type: string
+        - name: endDate
+          in: query
+          description: 'End Date. The format is yyyyMMDD. Example: 20240628'
+          required: false
+          schema:
+            type: string
+        - name: billingCycle
+          in: query
+          description: 'Billing Cycle. The format is yyyyMM. Example: 202410'
+          required: false
+          schema:
+            type: string
+        - name: groupBy
+          in: query
+          description: 'Group By carrier,country,RatePlan,RatingZone. Example: carrier,country,ratePlan,ratingZone. Accepts list of string.'
+          required: false
+          style: form
+          explode: false
+          schema:
+            type: array
+            items:
+              type: string
+        - name: metrics
+          in: query
+          description: 'Metrics. Example: data,sms,voice,smt,smo,vmo,vmt. Accepts list of string.'
+          required: false
+          style: form
+          explode: false
+          schema:
+            type: array
+            items:
+              type: string
+        - name: sortedBy
+          in: query
+          description: 'Sorted By. Example: account, data, sms, voice, smt, smo, vmt, vmo'
+          required: false
+          schema:
+            type: string
+            default: account
+        - name: sortDirection
+          in: query
+          description: Sort Direction
+          required: false
+          schema:
+            type: string
+            default: desc
+        - name: pageNumber
+          in: query
+          description: Page Number
+          required: false
+          schema:
+            type: integer
+            default: "1"
+        - name: pageSize
+          in: query
+          description: Page Size
+          required: false
+          schema:
+            type: integer
+            default: "50"
+        - name: apiVersion
+          in: path
+          description: Defaults to 1
+          required: true
+          schema:
+            type: string
+            default: "1"
+      responses:
+        "200":
+          description: Success
+        "400":
+          description: Bad Request
+        "401":
+          description: Invalid Credentials
+        "404":
+          description: Resource not found
+        "500":
+          description: Server error
+  /v{apiVersion}/dynareport/acct/device/subscriptions:
+    get:
+      tags:
+        - Get list of Device Subscription Details for given account.
+      summary: Return list of Device Subscription Details for given account.
+      description: ""
+      operationId: getAcctDeviceResponse
+      parameters:
+        - name: startDate
+          in: query
+          description: 'Start Date. The format is yyyyMMDD. Example: 20240624'
+          required: false
+          schema:
+            type: string
+        - name: endDate
+          in: query
+          description: 'End Date. The format is yyyyMMDD. Example: 20240628'
+          required: false
+          schema:
+            type: string
+        - name: billingCycle
+          in: query
+          description: 'Billing Cycle. The format is yyyyMM. Example: 202410'
+          required: false
+          schema:
+            type: string
+        - name: billable
+          in: query
+          description: Billable flag. Valid value can be Y or N.
+          required: false
+          schema:
+            type: string
+        - name: pageNumber
+          in: query
+          description: Page Number
+          required: false
+          schema:
+            type: integer
+            default: "1"
+        - name: pageSize
+          in: query
+          description: Page Size
+          required: false
+          schema:
+            type: integer
+            default: "50"
+        - name: apiVersion
+          in: path
+          description: Defaults to 1
+          required: true
+          schema:
+            type: string
+            default: "1"
+      responses:
+        "200":
+          description: Success
+        "400":
+          description: Bad Request
+        "401":
+          description: Invalid Credentials
+        "404":
+          description: Resource not found
+        "500":
+          description: Server error
+  /v{apiVersion}/dynareport/acct/topk/usage:
+    get:
+      tags:
+        - Get list of TOP K Usage Details Group by Carrier, Country, RatePlan, RatingZone for given account.
+      summary: Return list of TOP K Usage Details Group by Carrier, Country, RatePlan, RatingZone for given account.
+      description: ""
+      operationId: getTopKUsageByAccount
+      parameters:
+        - name: k
+          in: query
+          description: top K, Default value is 10. Max limit is 100
+          required: false
+          schema:
+            type: number
+        - name: startDate
+          in: query
+          description: 'Start Date. The format is yyyyMMDD. Example: 20240624'
+          required: false
+          schema:
+            type: string
+        - name: endDate
+          in: query
+          description: 'End Date. The format is yyyyMMDD. Example: 20240628'
+          required: false
+          schema:
+            type: string
+        - name: billingCycle
+          in: query
+          description: 'Billing Cycle. The format is yyyyMM. Example: 202410'
+          required: false
+          schema:
+            type: string
+        - name: groupBy
+          in: query
+          description: 'Group By carrier,country,RatePlan,RatingZone. Example: carrier,country,ratePlan,ratingZone. Accepts list of string.'
+          required: false
+          style: form
+          explode: false
+          schema:
+            type: array
+            items:
+              type: string
+        - name: metrics
+          in: query
+          description: 'Metrics. Example: data,sms,voice,smt,smo,vmo,vmt. Accepts list of string.'
+          required: true
+          style: form
+          explode: false
+          schema:
+            type: array
+            items:
+              type: string
+        - name: sortedBy
+          in: query
+          description: 'Sorted By. Example: account, data, sms, voice, smt, smo, vmt, vmo'
+          required: false
+          schema:
+            type: string
+            default: account
+        - name: sortDirection
+          in: query
+          description: Sort Direction
+          required: false
+          schema:
+            type: string
+            default: desc
+        - name: pageNumber
+          in: query
+          description: Page Number
+          required: false
+          schema:
+            type: integer
+            default: "1"
+        - name: pageSize
+          in: query
+          description: Page Size
+          required: false
+          schema:
+            type: integer
+            default: "50"
+        - name: apiVersion
+          in: path
+          description: Defaults to 1
+          required: true
+          schema:
+            type: string
+            default: "1"
+      responses:
+        "200":
+          description: Success
+        "400":
+          description: Bad Request
+        "401":
+          description: Invalid Credentials
+        "404":
+          description: Resource not found
+        "500":
+          description: Server error
+  /v{apiVersion}/apikey/{userId}:
+    get:
+      tags:
+        - API Key
+      summary: GET API Key for a given user
+      description: ""
+      operationId: getApiKeyForAnUser
+      parameters:
+        - name: userId
+          in: path
+          description: userId
+          required: true
+          schema:
+            type: string
+        - name: apiVersion
+          in: path
+          description: Defaults to 1
+          required: true
+          schema:
+            type: string
+            default: "1"
+      responses:
+        "200":
+          description: Success
+        "400":
+          description: Invalid request
+        "401":
+          description: Bad credentials
+        "403":
+          description: Forbidden
+        "404":
+          description: Resource not found
+        "500":
+          description: Server error
+  /v{apiVersion}/devices/{iccid}/auditTrails:
+    get:
+      tags:
+        - Get Device Audit trails
+      summary: Retrieve audit history for a device based on various filters.
+      description: ""
+      operationId: getDeviceAuditTrails
+      parameters:
+        - name: iccid
+          in: path
+          description: ICCID
+          required: true
+          schema:
+            type: string
+        - name: daysOfHistory
+          in: query
+          description: Maximum allowed 365, Defaults to 30
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: "30"
+        - name: pageSize
+          in: query
+          description: Maximum of 50, defaults to 50
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: "50"
+        - name: pageNumber
+          in: query
+          description: Defaults to 1
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: "1"
+        - name: apiVersion
+          in: path
+          description: Defaults to 1
+          required: true
+          schema:
+            type: string
+            default: "1"
+      responses:
+        "200":
+          description: Success
+        "400":
+          description: Invalid request
+        "401":
+          description: Bad credentials
+        "404":
+          description: Resource not found
+        "500":
+          description: Server Error
+  /v{apiVersion}/devices/{iccid}/locationHistory:
+    get:
+      tags:
+        - Get Device Location History
+      summary: Get Device Location History during a specified time frame.
+      description: ""
+      operationId: getDeviceLocationHistory
+      parameters:
+        - name: iccid
+          in: path
+          description: ICCID of the device
+          required: true
+          schema:
+            type: string
+        - name: fromDate
+          in: query
+          description: 'If this is not specified, most recent 2 location records will be returned. </br> The format is yyyy-MM-ddTHH:mm:ssZ </br> Eg: 2018-07-18T17:31:34+00:00'
+          required: false
+          schema:
+            type: string
+        - name: toDate
+          in: query
+          description: 'If this is not specified, location history up until the current date will be returned. </br> The format is yyyy-MM-ddTHH:mm:ssZ </br> Eg: 2018-07-18T17:31:34+00:00'
+          required: false
+          schema:
+            type: string
+        - name: pageSize
+          in: query
+          description: Maximum of 50, defaults to 50
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: "50"
+        - name: pageNumber
+          in: query
+          description: Defaults to 1
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: "1"
+        - name: apiVersion
+          in: path
+          description: Defaults to 1
+          required: true
+          schema:
+            type: string
+            default: "1"
+      responses:
+        "200":
+          description: Success
+        "400":
+          description: Invalid request
+        "401":
+          description: Bad credentials
+        "404":
+          description: Resource not found
+        "500":
+          description: Server Error
+  /v{apiVersion}/devices/{iccid}/ctdUsages:
+    get:
+      tags:
+        - Get Device Usage
+      summary: Return usage related details for a given device.
+      description: ""
+      operationId: getUsagesByIccid
+      parameters:
+        - name: iccid
+          in: path
+          description: ICCID
+          required: true
+          schema:
+            type: string
+        - name: apiVersion
+          in: path
+          description: Defaults to 1
+          required: true
+          schema:
+            type: string
+            default: "1"
+      responses:
+        "200":
+          description: Success
+        "400":
+          description: Invalid request
+        "401":
+          description: Bad credentials
+        "404":
+          description: Resource not found
+        "500":
+          description: Server error
+  /v{apiVersion}/devices/{iccid}/usageInZone:
+    get:
+      tags:
+        - Get Device Usage by Zone
+      summary: Return usage related details for a device under different zones and rate plans.
+      description: ""
+      operationId: getDeviceCycleUsageInZones
+      parameters:
+        - name: iccid
+          in: path
+          description: ICCID
+          required: true
+          schema:
+            type: string
+        - name: cycleStartDate
+          in: query
+          description: 'Filter by start date of a billing cycle.</br> The format is yyyy-MM-ddZ </br> Eg: 2016-11-10Z or 2016-11-10+00:00'
+          required: false
+          schema:
+            type: string
+        - name: ratePlan
+          in: query
+          description: Filter by rate plan
+          required: false
+          schema:
+            type: string
+        - name: zone
+          in: query
+          description: Filter by zone
+          required: false
+          schema:
+            type: string
+        - name: isActiveRatePlan
+          in: query
+          description: Filter by active rate plans
+          required: false
+          schema:
+            type: string
+        - name: apiVersion
+          in: path
+          description: Defaults to 1
+          required: true
+          schema:
+            type: string
+            default: "1"
+      responses:
+        "200":
+          description: Success
+        "400":
+          description: Invalid request
+        "401":
+          description: Bad credentials
+        "404":
+          description: Resource not found
+        "500":
+          description: Server error
+  /v{apiVersion}/devices/{iccid}/sessionInfo:
+    get:
+      tags:
+        - Get Session Details
+      summary: Return information related to the current or most recent session.
+      description: ""
+      operationId: getSessionInfoByIccid
+      parameters:
+        - name: iccid
+          in: path
+          description: ICCID
+          required: true
+          schema:
+            type: string
+        - name: apiVersion
+          in: path
+          description: Defaults to 1
+          required: true
+          schema:
+            type: string
+            default: "1"
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SessionInfos'
+        "400":
+          description: Invalid request
+        "401":
+          description: Bad credentials
+        "404":
+          description: Resource not found
+        "500":
+          description: Server error
+  /v{apiVersion}/smsMessages/{smsMsgId}:
+    get:
+      tags:
+        - Get SMS Details
+      summary: Returns detailed information about a message.
+      description: ""
+      operationId: getSmsMessageDetail
+      parameters:
+        - name: smsMsgId
+          in: path
+          description: SMS Message ID
+          required: true
+          schema:
+            type: string
+        - name: messageEncoding
+          in: query
+          description: LITERAL(default) or BASE64
+          required: false
+          schema:
+            type: string
+        - name: apiVersion
+          in: path
+          description: Defaults to 1
+          required: true
+          schema:
+            type: string
+            default: "1"
+      responses:
+        "200":
+          description: Success
+        "400":
+          description: Invalid request
+        "401":
+          description: Bad credentials
+        "404":
+          description: Resource not found
+        "500":
+          description: Server error
+  /v{apiVersion}/usages:
+    get:
+      tags:
+        - Get Usage by RatePlan
+      summary: Get Usage by RatePlan
+      description: ""
+      operationId: getUsageByRatePlan
+      parameters:
+        - name: ratePlanName
+          in: query
+          description: RatePlan Name
+          required: true
+          schema:
+            type: string
+        - name: cycleStartDate
+          in: query
+          description: 'Filter by start date of a billing cycle.</br> The format is yyyy-MM-ddZ </br> Eg: 2016-11-10Z or 2016-11-10+00:00'
+          required: false
+          schema:
+            type: string
+        - name: usageType
+          in: query
+          description: Data Usage Type. Values can be either one of these - DATA/SMS/VOICE
+          required: false
+          schema:
+            type: string
+        - name: ratePlanVersion
+          in: query
+          description: RatePlan Version
+          required: false
+          schema:
+            type: integer
+            format: int64
+        - name: pageNumber
+          in: query
+          description: Defaults to 1
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: "1"
+        - name: pageSize
+          in: query
+          description: Defaults to 50
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: "50"
+        - name: apiVersion
+          in: path
+          description: Defaults to 1
+          required: true
+          schema:
+            type: string
+            default: "1"
+      responses:
+        "200":
+          description: Success
+        "400":
+          description: Invalid request
+        "401":
+          description: Bad credentials
+        "404":
+          description: Resource not found
+        "500":
+          description: Server Error
+  /v{apiVersion}/devices:
+    get:
+      tags:
+        - Search Devices
+      summary: Search for devices based on various filters.
+      description: ""
+      operationId: searchDevices
+      parameters:
+        - name: apiVersion
+          in: path
+          description: Defaults to 1
+          required: true
+          schema:
+            type: string
+            default: "1"
+        - name: accountId
+          in: query
+          description: Filter by account
+          required: false
+          schema:
+            type: integer
+            format: int64
+        - name: modifiedSince
+          in: query
+          description: 'Filter by time since last modification was made to device.</br> The format is yyyy-MM-ddTHH:mm:ssZ </br> Eg: 2016-04-18T17:31:34+00:00'
+          required: true
+          schema:
+            type: string
+        - name: modifiedTill
+          in: query
+          description: 'Filter by time till last modification was made to device.</br> The format is yyyy-MM-ddTHH:mm:ssZ </br> Eg: 2016-05-18T17:31:34+00:00'
+          required: false
+          schema:
+            type: string
+        - name: status
+          in: query
+          description: Filter by device status
+          required: false
+          schema:
+            type: string
+        - name: accountCustom1
+          in: query
+          description: Filter by account custom field 1
+          required: false
+          schema:
+            type: string
+        - name: accountCustom2
+          in: query
+          description: Filter by account custom field 2
+          required: false
+          schema:
+            type: string
+        - name: accountCustom3
+          in: query
+          description: Filter by account custom field 3
+          required: false
+          schema:
+            type: string
+        - name: accountCustom4
+          in: query
+          description: Filter by account custom field 4
+          required: false
+          schema:
+            type: string
+        - name: accountCustom5
+          in: query
+          description: Filter by account custom field 5
+          required: false
+          schema:
+            type: string
+        - name: accountCustom6
+          in: query
+          description: Filter by account custom field 6
+          required: false
+          schema:
+            type: string
+        - name: accountCustom7
+          in: query
+          description: Filter by account custom field 7
+          required: false
+          schema:
+            type: string
+        - name: accountCustom8
+          in: query
+          description: Filter by account custom field 8
+          required: false
+          schema:
+            type: string
+        - name: accountCustom9
+          in: query
+          description: Filter by account custom field 9
+          required: false
+          schema:
+            type: string
+        - name: accountCustom10
+          in: query
+          description: Filter by account custom field 10
+          required: false
+          schema:
+            type: string
+        - name: operatorCustom1
+          in: query
+          description: Filter by operator custom field 1
+          required: false
+          schema:
+            type: string
+        - name: operatorCustom2
+          in: query
+          description: Filter by operator custom field 2
+          required: false
+          schema:
+            type: string
+        - name: operatorCustom3
+          in: query
+          description: Filter by operator custom field 3
+          required: false
+          schema:
+            type: string
+        - name: operatorCustom4
+          in: query
+          description: Filter by operator custom field 4
+          required: false
+          schema:
+            type: string
+        - name: operatorCustom5
+          in: query
+          description: Filter by operator custom field 5
+          required: false
+          schema:
+            type: string
+        - name: customerCustom1
+          in: query
+          description: Filter by customer custom field 1
+          required: false
+          schema:
+            type: string
+        - name: customerCustom2
+          in: query
+          description: Filter by customer custom field 2
+          required: false
+          schema:
+            type: string
+        - name: customerCustom3
+          in: query
+          description: Filter by customer custom field 3
+          required: false
+          schema:
+            type: string
+        - name: customerCustom4
+          in: query
+          description: Filter by customer custom field 4
+          required: false
+          schema:
+            type: string
+        - name: customerCustom5
+          in: query
+          description: Filter by customer custom field 5
+          required: false
+          schema:
+            type: string
+        - name: pageSize
+          in: query
+          description: Maximum of 50, defaults to 50
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 50
+        - name: pageNumber
+          in: query
+          description: Defaults to 1
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 1
+      responses:
+        "200":
+          description: Success
+        "400":
+          description: Invalid request
+        "401":
+          description: Bad credentials
+        "500":
+          description: Server Error
+  /v{apiVersion}/smsMessages:
+    get:
+      tags:
+        - Search SMS
+      summary: Search for messages that have been sent or received during a specified time frame.
+      description: ""
+      operationId: getSmsMessages
+      parameters:
+        - name: accountId
+          in: query
+          description: Filter by account
+          required: false
+          schema:
+            type: integer
+            format: int64
+        - name: iccid
+          in: query
+          description: If specified, search will be limited to this device
+          required: false
+          schema:
+            type: string
+        - name: fromDate
+          in: query
+          description: 'The format is yyyy-MM-ddTHH:mm:ssZ </br> Eg: 2016-04-18T17:31:34+00:00'
+          required: true
+          schema:
+            type: string
+        - name: toDate
+          in: query
+          description: 'If this is not specified, messages up until the current date will be returned. </br> The format is yyyy-MM-ddTHH:mm:ssZ </br> Eg: 2016-04-18T17:31:34+00:00'
+          required: false
+          schema:
+            type: string
+        - name: pageSize
+          in: query
+          description: Maximum of 50, defaults to 50
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: "50"
+        - name: pageNumber
+          in: query
+          description: Defaults to 1
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: "1"
+        - name: msgType
+          in: query
+          description: Filter by Msg type (MO/MT)
+          required: false
+          schema:
+            type: string
+        - name: apiVersion
+          in: path
+          description: Defaults to 1
+          required: true
+          schema:
+            type: string
+            default: "1"
+      responses:
+        "200":
+          description: Success
+        "400":
+          description: Invalid request
+        "401":
+          description: Bad credentials
+        "500":
+          description: Server Error
+  /v{apiVersion}/devices/{iccid}/smsMessages:
+    post:
+      tags:
+        - Send SMS
+      summary: Send SMS message to a device.
+      description: ""
+      operationId: sendSmsMessages
+      parameters:
+        - name: iccid
+          in: path
+          description: ICCID
+          required: true
+          schema:
+            type: string
+        - name: apiVersion
+          in: path
+          description: Defaults to 1
+          required: true
+          schema:
+            type: string
+            default: "1"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SendSmsMessagesRequest'
+      responses:
+        "200":
+          description: Success
+        "400":
+          description: Invalid request
+        "401":
+          description: Bad credentials
+        "404":
+          description: Resource not found
+        "500":
+          description: Server error
+  /v{apiVersion}/users:
+    post:
+      tags:
+        - Users
+      summary: Create user.
+      description: ""
+      operationId: createUser
+      parameters:
+        - name: apiVersion
+          in: path
+          description: Defaults to 1
+          required: true
+          schema:
+            type: string
+            default: "1"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserCreateDTO'
+        description: 'Create a User '
+        required: true
+      responses:
+        "200":
+          description: Success
+        "400":
+          description: Bad request
+        "401":
+          description: Invalid Credentials
+        "403":
+          description: Forbidden
+        "404":
+          description: Resource not found
+        "500":
+          description: Server Error
+    get:
+      tags:
+        - Users
+      summary: Get all users based on the authority of the user invoking this API
+      description: ""
+      operationId: getAllUsers
+      parameters:
+        - name: username
+          in: query
+          description: Login Username
+          required: false
+          schema:
+            type: string
+        - name: pageSize
+          in: query
+          description: defaults to 50
+          required: false
+          schema:
+            type: integer
+            default: "50"
+        - name: pageNumber
+          in: query
+          description: Defaults to 1
+          required: false
+          schema:
+            type: integer
+            default: "1"
+        - name: apiVersion
+          in: path
+          description: Defaults to 1
+          required: true
+          schema:
+            type: string
+            default: "1"
+      responses:
+        "200":
+          description: Success
+        "400":
+          description: Invalid request
+        "401":
+          description: Bad credentials
+        "404":
+          description: Resource not found
+        "500":
+          description: Server error
+  /v{apiVersion}/users/{userId}:
+    delete:
+      tags:
+        - Users
+      summary: Delete user for a given userId
+      description: ""
+      operationId: deleteUserById
+      parameters:
+        - name: userId
+          in: path
+          description: UserId
+          required: true
+          schema:
+            type: string
+        - name: apiVersion
+          in: path
+          description: Defaults to 1
+          required: true
+          schema:
+            type: string
+            default: "1"
+      responses:
+        "200":
+          description: Success
+        "400":
+          description: Invalid request
+        "401":
+          description: Bad credentials
+        "404":
+          description: Resource not found
+        "500":
+          description: Server error
+    put:
+      tags:
+        - Users
+      summary: Update user
+      description: ""
+      operationId: updateUser
+      parameters:
+        - name: userId
+          in: path
+          description: UserId
+          required: true
+          schema:
+            type: string
+        - name: apiVersion
+          in: path
+          description: Defaults to 1
+          required: true
+          schema:
+            type: string
+            default: "1"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserUpdateDTO'
+        description: Update user
+        required: true
+      responses:
+        "200":
+          description: Success
+        "400":
+          description: Bad request
+        "401":
+          description: Invalid Credentials
+        "404":
+          description: Resource not found
+        "500":
+          description: Server Error
+    get:
+      tags:
+        - Users
+      summary: Get user details for a given userId
+      description: ""
+      operationId: getUserById
+      parameters:
+        - name: userId
+          in: path
+          description: UserId
+          required: true
+          schema:
+            type: string
+        - name: apiVersion
+          in: path
+          description: Defaults to 1
+          required: true
+          schema:
+            type: string
+            default: "1"
+      responses:
+        "200":
+          description: Success
+        "400":
+          description: Invalid request
+        "401":
+          description: Bad credentials
+        "404":
+          description: Resource not found
+        "500":
+          description: Server error
+  /v{apiVersion}/users/{userId}/resetPassword:
+    put:
+      tags:
+        - Users
+      summary: Reset password for the given user
+      description: ""
+      operationId: resetUserPassword
+      parameters:
+        - name: userId
+          in: path
+          description: UserId
+          required: true
+          schema:
+            type: string
+        - name: apiVersion
+          in: path
+          description: Defaults to 1
+          required: true
+          schema:
+            type: string
+            default: "1"
+      responses:
+        "200":
+          description: Success
+        "400":
+          description: Invalid request
+        "401":
+          description: Bad credentials
+        "404":
+          description: Resource not found
+        "500":
+          description: Server error
+servers:
+  - url: https://restapi3.jasper.com/rws/api
+    description: Production Server
+  - url: https://rws-jpotest.jasper.com/rws/api
+    description: Sandbox/Test Server
+components:
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: HTTP Basic Authentication. Use your Control Center username and your API key as the password.
+  requestBodies:
+    CustomerDTO:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CustomerDTO'
+      description: Customer Details
+      required: true
+  schemas:
+    ActivateTerminalEventRequest:
+      type: object
+      properties:
+        eventName:
+          type: string
+          default: eventName
+        effectiveDate:
+          type: string
+          format: date-time
+          example: "2024-04-29T12:03:44Z"
+        instances:
+          type: integer
+          default: 1
+        unlimitedInstances:
+          type: boolean
+          default: false
+      required:
+        - eventName
+    CustomerDTO:
+      type: object
+      properties:
+        name:
+          type: string
+          format: string
+          minLength: 1
+          maxLength: 60
+          pattern: ^[^*,]+$
+        accountName:
+          type: string
+          format: string
+        securityQuestion:
+          type: string
+          format: string
+          minLength: 10
+          maxLength: 100
+          pattern: ^[^*,]+$
+        securityAnswer:
+          type: string
+          format: string
+          minLength: 0
+          maxLength: 100
+          pattern: ^[^*,]+$
+        shipToBillAddress:
+          type: boolean
+          default: false
+        contacts:
+          type: array
+          items: {}
+        billingAddress:
+          type: object
+          properties:
+            addressLine1:
+              type: string
+              format: string
+              minLength: 0
+              maxLength: 40
+              pattern: ^[^*,]+$
+            addressLine2:
+              type: string
+              format: string
+              minLength: 0
+              maxLength: 40
+              pattern: ^[^*,]+$
+            city:
+              type: string
+              format: string
+              minLength: 0
+              maxLength: 40
+              pattern: ^[^*,]+$
+            state:
+              type: string
+              format: string
+              minLength: 0
+              maxLength: 40
+              pattern: ^[^*,]+$
+            country:
+              type: string
+              format: string
+              minLength: 0
+              maxLength: 100
+              pattern: ^[^*,]+$
+            postalCode:
+              type: string
+              format: string
+              minLength: 0
+              maxLength: 15
+              pattern: ^[^*,]+$
+        shippingAddress:
+          type: object
+          properties:
+            addressLine1:
+              type: string
+              format: string
+              minLength: 0
+              maxLength: 40
+              pattern: ^[^*,]+$
+            addressLine2:
+              type: string
+              format: string
+              minLength: 0
+              maxLength: 40
+              pattern: ^[^*,]+$
+            city:
+              type: string
+              format: string
+              minLength: 0
+              maxLength: 40
+              pattern: ^[^*,]+$
+            state:
+              type: string
+              format: string
+              minLength: 0
+              maxLength: 40
+              pattern: ^[^*,]+$
+            country:
+              type: string
+              format: string
+              minLength: 0
+              maxLength: 100
+              pattern: ^[^*,]+$
+            postalCode:
+              type: string
+              format: string
+              minLength: 0
+              maxLength: 15
+              pattern: ^[^*,]+$
+    Hello:
+      type: object
+      properties:
+        context:
+          type: string
+    DeviceEditModel:
+      type: object
+      properties:
+        effectiveDate:
+          type: string
+          format: date-time
+        ratePlan:
+          type: string
+        communicationPlan:
+          type: string
+        status:
+          type: string
+        customer:
+          type: string
+        deviceID:
+          type: string
+        modemID:
+          type: string
+        overageLimitOverride:
+          type: string
+        operatorCustom1:
+          type: string
+        operatorCustom2:
+          type: string
+        operatorCustom3:
+          type: string
+        operatorCustom4:
+          type: string
+        operatorCustom5:
+          type: string
+        accountCustom1:
+          type: string
+        accountCustom2:
+          type: string
+        accountCustom3:
+          type: string
+        accountCustom4:
+          type: string
+        accountCustom5:
+          type: string
+        accountCustom6:
+          type: string
+        accountCustom7:
+          type: string
+        accountCustom8:
+          type: string
+        accountCustom9:
+          type: string
+        accountCustom10:
+          type: string
+        customerCustom1:
+          type: string
+        customerCustom2:
+          type: string
+        customerCustom3:
+          type: string
+        customerCustom4:
+          type: string
+        customerCustom5:
+          type: string
+        ipv4Address:
+          type: string
+        ipv6Address:
+          type: string
+    EditEventInstancesRequest:
+      type: object
+      properties:
+        eventID:
+          type: string
+          default: 123456
+        eventName:
+          type: string
+          default: eventName
+        action:
+          type: string
+          default: CancelPendingEvents
+      required:
+        - action
+    SessionInfos:
+      type: object
+      properties:
+        iccid:
+          type: string
+        ipAddress:
+          type: string
+        ipv6Address:
+          type: string
+        dateSessionStarted:
+          type: string
+          format: date-time
+        dateSessionEnded:
+          type: string
+          format: date-time
+        apn:
+          type: string
+    SendSmsMessagesRequest:
+      type: object
+      properties:
+        messageText:
+          type: string
+        messageEncoding:
+          type: string
+        dataCoding:
+          type: integer
+          format: int32
+        tpvp:
+          type: integer
+          format: int32
+        callbackParam:
+          type: object
+          properties:
+            callbackType:
+              type: string
+            callbackUrl:
+              type: string
+    UserCreateDTO:
+      type: object
+      properties:
+        username:
+          type: string
+          format: string
+          minLength: 6
+          maxLength: 25
+        roleName:
+          type: string
+          format: string
+        accessType:
+          type: string
+          format: string
+        accountName:
+          type: string
+          format: string
+        customerName:
+          type: string
+          format: string
+        firstName:
+          type: string
+          format: string
+          minLength: 1
+          maxLength: 35
+        lastName:
+          type: string
+          format: string
+          minLength: 1
+          maxLength: 35
+        email:
+          type: string
+          format: string
+          minLength: 3
+          maxLength: 320
+          pattern: ^[a-zA-Z0-9$%&'*+-/=?^`{|}~]+@[a-zA-Z0-9.-]+$
+        phone:
+          type: string
+          format: string
+          minLength: 0
+          maxLength: 25
+        language:
+          type: string
+          format: string
+        timeZone:
+          type: string
+          format: string
+        liveUpdateEnabled:
+          type: boolean
+    UserUpdateDTO:
+      type: object
+      properties:
+        roleName:
+          type: string
+          format: string
+        accessType:
+          type: string
+          format: string
+        userLocked:
+          type: boolean
+        firstName:
+          type: string
+          format: string
+          minLength: 1
+          maxLength: 35
+        lastName:
+          type: string
+          format: string
+          minLength: 1
+          maxLength: 35
+        email:
+          type: string
+          format: string
+          minLength: 3
+          maxLength: 320
+          pattern: ^[a-zA-Z0-9$%&'*+-/=?^`{|}~]+@[a-zA-Z0-9.-]+$
+        phone:
+          type: string
+          format: string
+          minLength: 0
+          maxLength: 25
+        language:
+          type: string
+          format: string
+        timeZone:
+          type: string
+          format: string
+        liveUpdateEnabled:
+          type: boolean
+    DeviceDetails:
+      type: object
+      properties:
+        iccid:
+          type: string
+          description: ICCID del dispositivo.
+        imsi:
+          type: string
+          description: IMSI del dispositivo.
+        msisdn:
+          type: string
+          description: MSISDN o numero di telefono del dispositivo.
+        imei:
+          type: string
+          description: IMEI del dispositivo.
+        status:
+          type: string
+          description: Stato SIM del dispositivo.
+        ratePlan:
+          type: string
+          description: Nome del piano tariffario associato al dispositivo.
+        communicationPlan:
+          type: string
+          description: Nome del piano di comunicazione associato al dispositivo.
+        customer:
+          type: string
+          description: Nome del cliente (in genere un'azienda o una business unit), eventualmente associato a questo dispositivo.
+          nullable: true
+        endConsumerId:
+          type: string
+          description: ID della persona eventualmente associata a questo dispositivo.
+          nullable: true
+        dateActivated:
+          type: string
+          format: date-time
+          description: Data di attivazione del dispositivo.
+        dateAdded:
+          type: string
+          format: date-time
+          description: Data in cui il dispositivo è stato aggiunto.
+        dateUpdated:
+          type: string
+          format: date-time
+          description: Data in cui si ha avuto luogo l'ultimo aggiornamento delle informazioni relative al dispositivo.
+        dateShipped:
+          type: string
+          format: date-time
+          description: Data in cui la SIM del dispositivo è stata trasferita dal magazzino del provider di servizi all'Account aziendale.
+        accountId:
+          type: string
+          description: ID dell'account aziendale eventualmente associato al dispositivo.
+        fixedIPAddress:
+          type: string
+          format: ipv4
+          description: L'indirizzo IPv4 assegnato al dispositivo.
+          nullable: true
+        fixedIpv6Address:
+          type: string
+          format: ipv6
+          description: L'indirizzo IPv6 assegnato al dispositivo.
+          nullable: true
+        operatorCustom1:
+          type: string
+          description: Valore per il campo personalizzato 1 del dispositivo creato dal provider di servizi.
+        operatorCustom2:
+          type: string
+          description: Valore per il campo personalizzato 2 del dispositivo creato dal provider di servizi.
+        operatorCustom3:
+          type: string
+          description: Valore per il campo personalizzato 3 del dispositivo creato dal provider di servizi.
+        operatorCustom4:
+          type: string
+          description: Valore per il campo personalizzato 4 del dispositivo creato dal provider di servizi.
+        operatorCustom5:
+          type: string
+          description: Valore per il campo personalizzato 5 del dispositivo creato dal provider di servizi.
+        accountCustom1:
+          type: string
+          description: Valore per il campo personalizzato 1 del dispositivo creato dall'azienda.
+        accountCustom2:
+          type: string
+          description: Valore per il campo personalizzato 2 del dispositivo creato dall'azienda.
+        accountCustom3:
+          type: string
+          description: Valore per il campo personalizzato 3 del dispositivo creato dall'azienda.
+        accountCustom4:
+          type: string
+          description: Valore per il campo personalizzato 4 del dispositivo creato dall'azienda.
+        accountCustom5:
+          type: string
+          description: Valore per il campo personalizzato 5 del dispositivo creato dall'azienda.
+        accountCustom6:
+          type: string
+          description: Valore per il campo personalizzato 6 del dispositivo creato dall'azienda.
+        accountCustom7:
+          type: string
+          description: Valore per il campo personalizzato 7 del dispositivo creato dall'azienda.
+        accountCustom8:
+          type: string
+          description: Valore per il campo personalizzato 8 del dispositivo creato dall'azienda.
+        accountCustom9:
+          type: string
+          description: Valore per il campo personalizzato 9 del dispositivo creato dall'azienda.
+        accountCustom10:
+          type: string
+          description: Valore per il campo personalizzato 10 del dispositivo creato dall'azienda.
+        customerCustom1:
+          type: string
+          description: Valore per il campo personalizzato 1 del dispositivo creato dal cliente.
+        customerCustom2:
+          type: string
+          description: Valore per il campo personalizzato 2 del dispositivo creato dal cliente.
+        customerCustom3:
+          type: string
+          description: Valore per il campo personalizzato 3 del dispositivo creato dal cliente.
+        customerCustom4:
+          type: string
+          description: Valore per il campo personalizzato 4 del dispositivo creato dal cliente.
+        customerCustom5:
+          type: string
+          description: Valore per il campo personalizzato 5 del dispositivo creato dal cliente.
+        simNotes:
+          type: string
+          description: Informazioni che il provider di servizi ha aggiunto sul dispositivo.
+          nullable: true
+        deviceID:
+          type: string
+          description: Identificatore facoltativo che un account o un cliente può assegnare a un dispositivo.
+          nullable: true
+        modemID:
+          type: string
+          description: Identifica il modem utilizzato dal dispositivo per trasmettere dati.
+        globalSimType:
+          type: string
+          description: Indica se il dispositivo utilizza una SIM principale o una sottoscrizione virtuale di un partner (per funzionalità Global SIM).
+        eid:
+          type: string
+          description: Identificatore eSIM che associa un profilo in Control Center con un'eSIM.
+          nullable: true
+        simProfileId:
+          type: string
+          description: Un identificativo che definisce il tipo di SIM fornito dal produttore.
