@@ -13,7 +13,8 @@
         "templateDir": "./my-templates",
         "additionalProperties": {
           "packageName": "jasperclient",
-          "projectName": "jasperclient"
+          "projectName": "jasperclient",
+          "enablePostProcessFile": true
         }
       }
     }
