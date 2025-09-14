@@ -21,3 +21,6 @@
 #docs/*.md
 # Then explicitly reverse the ignore rule for a single file:
 #!docs/README.md
+
+# Keep our custom .gitignore file and prevent it from being overwritten.
+.gitignore
