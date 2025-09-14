@@ -1,0 +1,63 @@
+type: object
+properties:
+  effectiveDate:
+    type: string
+    format: date-time
+  ratePlan:
+    type: string
+  communicationPlan:
+    type: string
+  status:
+    type: string
+  customer:
+    type: string
+  deviceID:
+    type: string
+  modemID:
+    type: string
+  overageLimitOverride:
+    type: string
+  operatorCustom1:
+    type: string
+  operatorCustom2:
+    type: string
+  operatorCustom3:
+    type: string
+  operatorCustom4:
+    type: string
+  operatorCustom5:
+    type: string
+  accountCustom1:
+    type: string
+  accountCustom2:
+    type: string
+  accountCustom3:
+    type: string
+  accountCustom4:
+    type: string
+  accountCustom5:
+    type: string
+  accountCustom6:
+    type: string
+  accountCustom7:
+    type: string
+  accountCustom8:
+    type: string
+  accountCustom9:
+    type: string
+  accountCustom10:
+    type: string
+  customerCustom1:
+    type: string
+  customerCustom2:
+    type: string
+  customerCustom3:
+    type: string
+  customerCustom4:
+    type: string
+  customerCustom5:
+    type: string
+  ipv4Address:
+    type: string
+  ipv6Address:
+    type: string

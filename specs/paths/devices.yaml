@@ -1,0 +1,538 @@
+/v{apiVersion}/devices/{iccid}:
+  put:
+    tags:
+      - Edit Device
+    summary: Modify any device attributes such as Status, Rate Plan, Communication Plan, Custom Fields and other identifiers.
+    description: ""
+    operationId: editDevice
+    parameters:
+      - name: iccid
+        in: path
+        description: ICCID
+        required: true
+        schema:
+          type: string
+      - name: apiVersion
+        in: path
+        description: Defaults to 1
+        required: true
+        schema:
+          type: string
+          default: "1"
+    requestBody:
+      description: At least one parameter is required
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '../../openapi.yaml#/components/schemas/DeviceEditModel'
+    responses:
+      "200":
+        description: Success
+      "202":
+        description: Accepted
+      "400":
+        description: Invalid request
+      "401":
+        description: Invalid credentials
+      "404":
+        description: Resource not found
+      "500":
+        description: Server Error
+  get:
+    tags:
+      - Get Device Details
+    summary: Return detailed information for a given device.
+    description: ""
+    operationId: getDeviceByIccid
+    parameters:
+      - name: iccid
+        in: path
+        description: ICCID
+        required: true
+        schema:
+          type: string
+      - name: apiVersion
+        in: path
+        description: Defaults to 1
+        required: true
+        schema:
+          type: string
+          default: "1"
+    responses:
+      "200":
+        description: Success
+        content:
+          application/json:
+            schema:
+              $ref: '../../openapi.yaml#/components/schemas/DeviceDetails'
+      "400":
+        description: Invalid request
+      "401":
+        description: Bad credentials
+      "404":
+        description: Resource not found
+      "500":
+        description: Server error
+/v{apiVersion}/devices/{iccid}/auditTrails:
+  get:
+    tags:
+      - Get Device Audit trails
+    summary: Retrieve audit history for a device based on various filters.
+    description: ""
+    operationId: getDeviceAuditTrails
+    parameters:
+      - name: iccid
+        in: path
+        description: ICCID
+        required: true
+        schema:
+          type: string
+      - name: daysOfHistory
+        in: query
+        description: Maximum allowed 365, Defaults to 30
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: "30"
+      - name: pageSize
+        in: query
+        description: Maximum of 50, defaults to 50
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: "50"
+      - name: pageNumber
+        in: query
+        description: Defaults to 1
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: "1"
+      - name: apiVersion
+        in: path
+        description: Defaults to 1
+        required: true
+        schema:
+          type: string
+          default: "1"
+    responses:
+      "200":
+        description: Success
+      "400":
+        description: Invalid request
+      "401":
+        description: Bad credentials
+      "404":
+        description: Resource not found
+      "500":
+        description: Server Error
+/v{apiVersion}/devices/{iccid}/locationHistory:
+  get:
+    tags:
+      - Get Device Location History
+    summary: Get Device Location History during a specified time frame.
+    description: ""
+    operationId: getDeviceLocationHistory
+    parameters:
+      - name: iccid
+        in: path
+        description: ICCID of the device
+        required: true
+        schema:
+          type: string
+      - name: fromDate
+        in: query
+        description: 'If this is not specified, most recent 2 location records will be returned. </br> The format is yyyy-MM-ddTHH:mm:ssZ </br> Eg: 2018-07-18T17:31:34+00:00'
+        required: false
+        schema:
+          type: string
+      - name: toDate
+        in: query
+        description: 'If this is not specified, location history up until the current date will be returned. </br> The format is yyyy-MM-ddTHH:mm:ssZ </br> Eg: 2018-07-18T17:31:34+00:00'
+        required: false
+        schema:
+          type: string
+      - name: pageSize
+        in: query
+        description: Maximum of 50, defaults to 50
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: "50"
+      - name: pageNumber
+        in: query
+        description: Defaults to 1
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: "1"
+      - name: apiVersion
+        in: path
+        description: Defaults to 1
+        required: true
+        schema:
+          type: string
+          default: "1"
+    responses:
+      "200":
+        description: Success
+      "400":
+        description: Invalid request
+      "401":
+        description: Bad credentials
+      "404":
+        description: Resource not found
+      "500":
+        description: Server Error
+/v{apiVersion}/devices/{iccid}/ctdUsages:
+  get:
+    tags:
+      - Get Device Usage
+    summary: Return usage related details for a given device.
+    description: ""
+    operationId: getUsagesByIccid
+    parameters:
+      - name: iccid
+        in: path
+        description: ICCID
+        required: true
+        schema:
+          type: string
+      - name: apiVersion
+        in: path
+        description: Defaults to 1
+        required: true
+        schema:
+          type: string
+          default: "1"
+    responses:
+      "200":
+        description: Success
+      "400":
+        description: Invalid request
+      "401":
+        description: Bad credentials
+      "404":
+        description: Resource not found
+      "500":
+        description: Server error
+/v{apiVersion}/devices/{iccid}/usageInZone:
+  get:
+    tags:
+      - Get Device Usage by Zone
+    summary: Return usage related details for a device under different zones and rate plans.
+    description: ""
+    operationId: getDeviceCycleUsageInZones
+    parameters:
+      - name: iccid
+        in: path
+        description: ICCID
+        required: true
+        schema:
+          type: string
+      - name: cycleStartDate
+        in: query
+        description: 'Filter by start date of a billing cycle.</br> The format is yyyy-MM-ddZ </br> Eg: 2016-11-10Z or 2016-11-10+00:00'
+        required: false
+        schema:
+          type: string
+      - name: ratePlan
+        in: query
+        description: Filter by rate plan
+        required: false
+        schema:
+          type: string
+      - name: zone
+        in: query
+        description: Filter by zone
+        required: false
+        schema:
+          type: string
+      - name: isActiveRatePlan
+        in: query
+        description: Filter by active rate plans
+        required: false
+        schema:
+          type: string
+      - name: apiVersion
+        in: path
+        description: Defaults to 1
+        required: true
+        schema:
+          type: string
+          default: "1"
+    responses:
+      "200":
+        description: Success
+      "400":
+        description: Invalid request
+      "401":
+        description: Bad credentials
+      "404":
+        description: Resource not found
+      "500":
+        description: Server error
+/v{apiVersion}/devices/{iccid}/sessionInfo:
+  get:
+    tags:
+      - Get Session Details
+    summary: Return information related to the current or most recent session.
+    description: ""
+    operationId: getSessionInfoByIccid
+    parameters:
+      - name: iccid
+        in: path
+        description: ICCID
+        required: true
+        schema:
+          type: string
+      - name: apiVersion
+        in: path
+        description: Defaults to 1
+        required: true
+        schema:
+          type: string
+          default: "1"
+    responses:
+      "200":
+        description: Success
+        content:
+          application/json:
+            schema:
+              $ref: '../../openapi.yaml#/components/schemas/SessionInfos'
+      "400":
+        description: Invalid request
+      "401":
+        description: Bad credentials
+      "404":
+        description: Resource not found
+      "500":
+        description: Server error
+/v{apiVersion}/devices:
+  get:
+    tags:
+      - Search Devices
+    summary: Search for devices based on various filters.
+    description: ""
+    operationId: searchDevices
+    parameters:
+      - name: apiVersion
+        in: path
+        description: Defaults to 1
+        required: true
+        schema:
+          type: string
+          default: "1"
+      - name: accountId
+        in: query
+        description: Filter by account
+        required: false
+        schema:
+          type: integer
+          format: int64
+      - name: modifiedSince
+        in: query
+        description: 'Filter by time since last modification was made to device.</br> The format is yyyy-MM-ddTHH:mm:ssZ </br> Eg: 2016-04-18T17:31:34+00:00'
+        required: true
+        schema:
+          type: string
+      - name: modifiedTill
+        in: query
+        description: 'Filter by time till last modification was made to device.</br> The format is yyyy-MM-ddTHH:mm:ssZ </br> Eg: 2016-05-18T17:31:34+00:00'
+        required: false
+        schema:
+          type: string
+      - name: status
+        in: query
+        description: Filter by device status
+        required: false
+        schema:
+          type: string
+      - name: accountCustom1
+        in: query
+        description: Filter by account custom field 1
+        required: false
+        schema:
+          type: string
+      - name: accountCustom2
+        in: query
+        description: Filter by account custom field 2
+        required: false
+        schema:
+          type: string
+      - name: accountCustom3
+        in: query
+        description: Filter by account custom field 3
+        required: false
+        schema:
+          type: string
+      - name: accountCustom4
+        in: query
+        description: Filter by account custom field 4
+        required: false
+        schema:
+          type: string
+      - name: accountCustom5
+        in: query
+        description: Filter by account custom field 5
+        required: false
+        schema:
+          type: string
+      - name: accountCustom6
+        in: query
+        description: Filter by account custom field 6
+        required: false
+        schema:
+          type: string
+      - name: accountCustom7
+        in: query
+        description: Filter by account custom field 7
+        required: false
+        schema:
+          type: string
+      - name: accountCustom8
+        in: query
+        description: Filter by account custom field 8
+        required: false
+        schema:
+          type: string
+      - name: accountCustom9
+        in: query
+        description: Filter by account custom field 9
+        required: false
+        schema:
+          type: string
+      - name: accountCustom10
+        in: query
+        description: Filter by account custom field 10
+        required: false
+        schema:
+          type: string
+      - name: operatorCustom1
+        in: query
+        description: Filter by operator custom field 1
+        required: false
+        schema:
+          type: string
+      - name: operatorCustom2
+        in: query
+        description: Filter by operator custom field 2
+        required: false
+        schema:
+          type: string
+      - name: operatorCustom3
+        in: query
+        description: Filter by operator custom field 3
+        required: false
+        schema:
+          type: string
+      - name: operatorCustom4
+        in: query
+        description: Filter by operator custom field 4
+        required: false
+        schema:
+          type: string
+      - name: operatorCustom5
+        in: query
+        description: Filter by operator custom field 5
+        required: false
+        schema:
+          type: string
+      - name: customerCustom1
+        in: query
+        description: Filter by customer custom field 1
+        required: false
+        schema:
+          type: string
+      - name: customerCustom2
+        in: query
+        description: Filter by customer custom field 2
+        required: false
+        schema:
+          type: string
+      - name: customerCustom3
+        in: query
+        description: Filter by customer custom field 3
+        required: false
+        schema:
+          type: string
+      - name: customerCustom4
+        in: query
+        description: Filter by customer custom field 4
+        required: false
+        schema:
+          type: string
+      - name: customerCustom5
+        in: query
+        description: Filter by customer custom field 5
+        required: false
+        schema:
+          type: string
+      - name: pageSize
+        in: query
+        description: Maximum of 50, defaults to 50
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 50
+      - name: pageNumber
+        in: query
+        description: Defaults to 1
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 1
+    responses:
+      "200":
+        description: Success
+      "400":
+        description: Invalid request
+      "401":
+        description: Bad credentials
+      "500":
+        description: Server Error
+/v{apiVersion}/devices/{iccid}/smsMessages:
+  post:
+    tags:
+      - Send SMS
+    summary: Send SMS message to a device.
+    description: ""
+    operationId: sendSmsMessages
+    parameters:
+      - name: iccid
+        in: path
+        description: ICCID
+        required: true
+        schema:
+          type: string
+      - name: apiVersion
+        in: path
+        description: Defaults to 1
+        required: true
+        schema:
+          type: string
+          default: "1"
+    requestBody:
+      content:
+        application/json:
+          schema:
+            $ref: '../../openapi.yaml#/components/schemas/SendSmsMessagesRequest'
+    responses:
+      "200":
+        description: Success
+      "400":
+        description: Invalid request
+      "401":
+        description: Bad credentials
+      "404":
+        description: Resource not found
+      "500":
+        description: Server error

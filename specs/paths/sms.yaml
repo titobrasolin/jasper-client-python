@@ -1,0 +1,109 @@
+/v{apiVersion}/smsMessages/{smsMsgId}:
+  get:
+    tags:
+      - Get SMS Details
+    summary: Returns detailed information about a message.
+    description: ""
+    operationId: getSmsMessageDetail
+    parameters:
+      - name: smsMsgId
+        in: path
+        description: SMS Message ID
+        required: true
+        schema:
+          type: string
+      - name: messageEncoding
+        in: query
+        description: LITERAL(default) or BASE64
+        required: false
+        schema:
+          type: string
+      - name: apiVersion
+        in: path
+        description: Defaults to 1
+        required: true
+        schema:
+          type: string
+          default: "1"
+    responses:
+      "200":
+        description: Success
+      "400":
+        description: Invalid request
+      "401":
+        description: Bad credentials
+      "404":
+        description: Resource not found
+      "500":
+        description: Server error
+/v{apiVersion}/smsMessages:
+  get:
+    tags:
+      - Search SMS
+    summary: Search for messages that have been sent or received during a specified time frame.
+    description: ""
+    operationId: getSmsMessages
+    parameters:
+      - name: accountId
+        in: query
+        description: Filter by account
+        required: false
+        schema:
+          type: integer
+          format: int64
+      - name: iccid
+        in: query
+        description: If specified, search will be limited to this device
+        required: false
+        schema:
+          type: string
+      - name: fromDate
+        in: query
+        description: 'The format is yyyy-MM-ddTHH:mm:ssZ </br> Eg: 2016-04-18T17:31:34+00:00'
+        required: true
+        schema:
+          type: string
+      - name: toDate
+        in: query
+        description: 'If this is not specified, messages up until the current date will be returned. </br> The format is yyyy-MM-ddTHH:mm:ssZ </br> Eg: 2016-04-18T17:31:34+00:00'
+        required: false
+        schema:
+          type: string
+      - name: pageSize
+        in: query
+        description: Maximum of 50, defaults to 50
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: "50"
+      - name: pageNumber
+        in: query
+        description: Defaults to 1
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: "1"
+      - name: msgType
+        in: query
+        description: Filter by Msg type (MO/MT)
+        required: false
+        schema:
+          type: string
+      - name: apiVersion
+        in: path
+        description: Defaults to 1
+        required: true
+        schema:
+          type: string
+          default: "1"
+    responses:
+      "200":
+        description: Success
+      "400":
+        description: Invalid request
+      "401":
+        description: Bad credentials
+      "500":
+        description: Server Error

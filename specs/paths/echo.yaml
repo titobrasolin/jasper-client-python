@@ -1,0 +1,27 @@
+/v{apiVersion}/echo/{param}:
+  get:
+    tags:
+      - Echo
+    summary: Simply returns a parameter passed by the client.
+    description: ""
+    operationId: getMsg
+    parameters:
+      - name: param
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: apiVersion
+        in: path
+        description: Defaults to 1
+        required: true
+        schema:
+          type: string
+          default: "1"
+    responses:
+      "200":
+        description: successful operation
+        content:
+          application/json:
+            schema:
+              $ref: '../../openapi.yaml#/components/schemas/Hello'

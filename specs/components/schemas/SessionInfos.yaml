@@ -1,0 +1,16 @@
+type: object
+properties:
+  iccid:
+    type: string
+  ipAddress:
+    type: string
+  ipv6Address:
+    type: string
+  dateSessionStarted:
+    type: string
+    format: date-time
+  dateSessionEnded:
+    type: string
+    format: date-time
+  apn:
+    type: string

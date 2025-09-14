@@ -1,0 +1,127 @@
+/v{apiVersion}/eventplan/{iccid}:
+  put:
+    tags:
+      - Assign Event Rate Plan to Device
+    summary: Triggers activation of an event for a device on the effective date
+    description: ""
+    operationId: activateTerminalEvent
+    parameters:
+      - in: path
+        name: apiVersion
+        description: Defaults to 1
+        required: true
+        schema:
+          type: string
+          default: "1"
+      - in: path
+        name: iccid
+        description: ICCID of the device
+        required: true
+        schema:
+          type: string
+    requestBody:
+      description: Triggers event activation for a device at the current date and time if no effectiveDate is provided.
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '../../openapi.yaml#/components/schemas/ActivateTerminalEventRequest'
+    responses:
+      "200":
+        description: Success
+      "400":
+        description: Invalid request
+      "401":
+        description: Invalid credentials
+      "403":
+        description: Forbidden
+      "404":
+        description: Resource not found
+      "500":
+        description: Server Error
+  get:
+    tags:
+      - Get Event Rate Plans Assigned to Device
+    summary: List of currently active and future-dated event plans for device.
+    description: ""
+    operationId: getTerminalEvents
+    parameters:
+      - in: path
+        name: apiVersion
+        description: Defaults to 1
+        required: true
+        schema:
+          type: string
+          default: "1"
+      - in: path
+        name: iccid
+        description: ICCID of the device
+        required: true
+        schema:
+          type: string
+      - in: query
+        name: pageSize
+        description: Maximum of 50, defaults to 50
+        required: false
+        schema:
+          type: integer
+          default: "50"
+      - in: query
+        name: pageNumber
+        description: Defaults to 1
+        required: false
+        schema:
+          type: integer
+          default: "1"
+    responses:
+      "200":
+        description: Success
+      "400":
+        description: Invalid request
+      "401":
+        description: Invalid credentials
+      "403":
+        description: Forbidden
+      "404":
+        description: Resource not found
+      "500":
+        description: Server Error
+/v{apiVersion}/editeventplan/{iccid}:
+  put:
+    tags:
+      - Edit Event Rate Plans Assigned to Device
+    summary: Cancel Pending Events for device
+    operationId: editEventInstances
+    parameters:
+      - in: path
+        name: apiVersion
+        required: true
+        schema:
+          type: string
+          default: "1"
+      - in: path
+        name: iccid
+        description: ICCID of the device
+        required: true
+        schema:
+          type: string
+    requestBody:
+      description: Either of the parameters eventID or eventName is required to cancel pending events
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '../../openapi.yaml#/components/schemas/EditEventInstancesRequest'
+    responses:
+      "200":
+        description: Success
+      "400":
+        description: Invalid request
+      "401":
+        description: Invalid credentials
+      "403":
+        description: Forbidden
+      "404":
+        description: Resource not found
+      "500":
+        description: Server Error

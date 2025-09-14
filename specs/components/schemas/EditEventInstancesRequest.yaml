@@ -1,0 +1,13 @@
+type: object
+properties:
+  eventID:
+    type: string
+    default: 123456
+  eventName:
+    type: string
+    default: eventName
+  action:
+    type: string
+    default: CancelPendingEvents
+required:
+  - action

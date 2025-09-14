@@ -1,0 +1,19 @@
+type: object
+properties:
+  messageText:
+    type: string
+  messageEncoding:
+    type: string
+  dataCoding:
+    type: integer
+    format: int32
+  tpvp:
+    type: integer
+    format: int32
+  callbackParam:
+    type: object
+    properties:
+      callbackType:
+        type: string
+      callbackUrl:
+        type: string

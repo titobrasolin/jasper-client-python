@@ -1,0 +1,48 @@
+type: object
+properties:
+  username:
+    type: string
+    format: string
+    minLength: 6
+    maxLength: 25
+  roleName:
+    type: string
+    format: string
+  accessType:
+    type: string
+    format: string
+  accountName:
+    type: string
+    format: string
+  customerName:
+    type: string
+    format: string
+  firstName:
+    type: string
+    format: string
+    minLength: 1
+    maxLength: 35
+  lastName:
+    type: string
+    format: string
+    minLength: 1
+    maxLength: 35
+  email:
+    type: string
+    format: string
+    minLength: 3
+    maxLength: 320
+    pattern: ^[a-zA-Z0-9$%&'*+-/=?^`{|}~]+@[a-zA-Z0-9.-]+$
+  phone:
+    type: string
+    format: string
+    minLength: 0
+    maxLength: 25
+  language:
+    type: string
+    format: string
+  timeZone:
+    type: string
+    format: string
+  liveUpdateEnabled:
+    type: boolean
