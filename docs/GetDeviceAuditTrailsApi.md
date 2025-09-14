@@ -46,9 +46,9 @@ with jasperclient.ApiClient(configuration) as api_client:
     api_instance = jasperclient.GetDeviceAuditTrailsApi(api_client)
     iccid = 'iccid_example' # str | ICCID
     api_version = '1' # str | Defaults to 1 (default to '1')
-    days_of_history = 56 # int | Maximum allowed 365, Defaults to 30 (optional)
-    page_size = 56 # int | Maximum of 50, defaults to 50 (optional)
-    page_number = 56 # int | Defaults to 1 (optional)
+    days_of_history = 30 # int | Maximum allowed 365, Defaults to 30 (optional) (default to 30)
+    page_size = 50 # int | Maximum of 50, defaults to 50 (optional) (default to 50)
+    page_number = 1 # int | Defaults to 1 (optional) (default to 1)
 
     try:
         # Retrieve audit history for a device based on various filters.
@@ -66,9 +66,9 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **iccid** | **str**| ICCID | 
  **api_version** | **str**| Defaults to 1 | [default to &#39;1&#39;]
- **days_of_history** | **int**| Maximum allowed 365, Defaults to 30 | [optional] 
- **page_size** | **int**| Maximum of 50, defaults to 50 | [optional] 
- **page_number** | **int**| Defaults to 1 | [optional] 
+ **days_of_history** | **int**| Maximum allowed 365, Defaults to 30 | [optional] [default to 30]
+ **page_size** | **int**| Maximum of 50, defaults to 50 | [optional] [default to 50]
+ **page_number** | **int**| Defaults to 1 | [optional] [default to 1]
 
 ### Return type
 

@@ -217,8 +217,8 @@ with jasperclient.ApiClient(configuration) as api_client:
     api_instance = jasperclient.UsersApi(api_client)
     api_version = '1' # str | Defaults to 1 (default to '1')
     username = 'username_example' # str | Login Username (optional)
-    page_size = 56 # int | defaults to 50 (optional)
-    page_number = 56 # int | Defaults to 1 (optional)
+    page_size = 50 # int | defaults to 50 (optional) (default to 50)
+    page_number = 1 # int | Defaults to 1 (optional) (default to 1)
 
     try:
         # Get all users based on the authority of the user invoking this API
@@ -236,8 +236,8 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **api_version** | **str**| Defaults to 1 | [default to &#39;1&#39;]
  **username** | **str**| Login Username | [optional] 
- **page_size** | **int**| defaults to 50 | [optional] 
- **page_number** | **int**| Defaults to 1 | [optional] 
+ **page_size** | **int**| defaults to 50 | [optional] [default to 50]
+ **page_number** | **int**| Defaults to 1 | [optional] [default to 1]
 
 ### Return type
 

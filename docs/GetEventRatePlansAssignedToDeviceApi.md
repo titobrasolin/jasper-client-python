@@ -46,8 +46,8 @@ with jasperclient.ApiClient(configuration) as api_client:
     api_instance = jasperclient.GetEventRatePlansAssignedToDeviceApi(api_client)
     api_version = '1' # str | Defaults to 1 (default to '1')
     iccid = 'iccid_example' # str | ICCID of the device
-    page_size = 56 # int | Maximum of 50, defaults to 50 (optional)
-    page_number = 56 # int | Defaults to 1 (optional)
+    page_size = 50 # int | Maximum of 50, defaults to 50 (optional) (default to 50)
+    page_number = 1 # int | Defaults to 1 (optional) (default to 1)
 
     try:
         # List of currently active and future-dated event plans for device.
@@ -65,8 +65,8 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **api_version** | **str**| Defaults to 1 | [default to &#39;1&#39;]
  **iccid** | **str**| ICCID of the device | 
- **page_size** | **int**| Maximum of 50, defaults to 50 | [optional] 
- **page_number** | **int**| Defaults to 1 | [optional] 
+ **page_size** | **int**| Maximum of 50, defaults to 50 | [optional] [default to 50]
+ **page_number** | **int**| Defaults to 1 | [optional] [default to 1]
 
 ### Return type
 

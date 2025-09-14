@@ -49,8 +49,8 @@ with jasperclient.ApiClient(configuration) as api_client:
     end_date = 'end_date_example' # str | End Date. The format is yyyyMMDD. Example: 20240628 (optional)
     billing_cycle = 'billing_cycle_example' # str | Billing Cycle. The format is yyyyMM. Example: 202410 (optional)
     billable = 'billable_example' # str | Billable flag. Valid value can be Y or N. (optional)
-    page_number = 56 # int | Page Number (optional)
-    page_size = 56 # int | Page Size (optional)
+    page_number = 1 # int | Page Number (optional) (default to 1)
+    page_size = 50 # int | Page Size (optional) (default to 50)
 
     try:
         # Return list of Device Subscription Details for given account.
@@ -71,8 +71,8 @@ Name | Type | Description  | Notes
  **end_date** | **str**| End Date. The format is yyyyMMDD. Example: 20240628 | [optional] 
  **billing_cycle** | **str**| Billing Cycle. The format is yyyyMM. Example: 202410 | [optional] 
  **billable** | **str**| Billable flag. Valid value can be Y or N. | [optional] 
- **page_number** | **int**| Page Number | [optional] 
- **page_size** | **int**| Page Size | [optional] 
+ **page_number** | **int**| Page Number | [optional] [default to 1]
+ **page_size** | **int**| Page Size | [optional] [default to 50]
 
 ### Return type
 

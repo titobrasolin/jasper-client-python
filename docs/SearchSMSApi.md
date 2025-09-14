@@ -49,8 +49,8 @@ with jasperclient.ApiClient(configuration) as api_client:
     account_id = 56 # int | Filter by account (optional)
     iccid = 'iccid_example' # str | If specified, search will be limited to this device (optional)
     to_date = 'to_date_example' # str | If this is not specified, messages up until the current date will be returned. </br> The format is yyyy-MM-ddTHH:mm:ssZ </br> Eg: 2016-04-18T17:31:34+00:00 (optional)
-    page_size = 56 # int | Maximum of 50, defaults to 50 (optional)
-    page_number = 56 # int | Defaults to 1 (optional)
+    page_size = 50 # int | Maximum of 50, defaults to 50 (optional) (default to 50)
+    page_number = 1 # int | Defaults to 1 (optional) (default to 1)
     msg_type = 'msg_type_example' # str | Filter by Msg type (MO/MT) (optional)
 
     try:
@@ -72,8 +72,8 @@ Name | Type | Description  | Notes
  **account_id** | **int**| Filter by account | [optional] 
  **iccid** | **str**| If specified, search will be limited to this device | [optional] 
  **to_date** | **str**| If this is not specified, messages up until the current date will be returned. &lt;/br&gt; The format is yyyy-MM-ddTHH:mm:ssZ &lt;/br&gt; Eg: 2016-04-18T17:31:34+00:00 | [optional] 
- **page_size** | **int**| Maximum of 50, defaults to 50 | [optional] 
- **page_number** | **int**| Defaults to 1 | [optional] 
+ **page_size** | **int**| Maximum of 50, defaults to 50 | [optional] [default to 50]
+ **page_number** | **int**| Defaults to 1 | [optional] [default to 1]
  **msg_type** | **str**| Filter by Msg type (MO/MT) | [optional] 
 
 ### Return type

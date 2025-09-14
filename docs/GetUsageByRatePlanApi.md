@@ -49,8 +49,8 @@ with jasperclient.ApiClient(configuration) as api_client:
     cycle_start_date = 'cycle_start_date_example' # str | Filter by start date of a billing cycle.</br> The format is yyyy-MM-ddZ </br> Eg: 2016-11-10Z or 2016-11-10+00:00 (optional)
     usage_type = 'usage_type_example' # str | Data Usage Type. Values can be either one of these - DATA/SMS/VOICE (optional)
     rate_plan_version = 56 # int | RatePlan Version (optional)
-    page_number = 56 # int | Defaults to 1 (optional)
-    page_size = 56 # int | Defaults to 50 (optional)
+    page_number = 1 # int | Defaults to 1 (optional) (default to 1)
+    page_size = 50 # int | Defaults to 50 (optional) (default to 50)
 
     try:
         # Get Usage by RatePlan
@@ -71,8 +71,8 @@ Name | Type | Description  | Notes
  **cycle_start_date** | **str**| Filter by start date of a billing cycle.&lt;/br&gt; The format is yyyy-MM-ddZ &lt;/br&gt; Eg: 2016-11-10Z or 2016-11-10+00:00 | [optional] 
  **usage_type** | **str**| Data Usage Type. Values can be either one of these - DATA/SMS/VOICE | [optional] 
  **rate_plan_version** | **int**| RatePlan Version | [optional] 
- **page_number** | **int**| Defaults to 1 | [optional] 
- **page_size** | **int**| Defaults to 50 | [optional] 
+ **page_number** | **int**| Defaults to 1 | [optional] [default to 1]
+ **page_size** | **int**| Defaults to 50 | [optional] [default to 50]
 
 ### Return type
 

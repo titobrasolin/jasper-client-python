@@ -33,7 +33,7 @@ class CustomerDTO(BaseModel):
     security_question: Optional[Annotated[str, Field(min_length=10, strict=True, max_length=100)]] = Field(default=None, alias="securityQuestion")
     security_answer: Optional[Annotated[str, Field(min_length=0, strict=True, max_length=100)]] = Field(default=None, alias="securityAnswer")
     ship_to_bill_address: Optional[StrictBool] = Field(default=False, alias="shipToBillAddress")
-    contacts: Optional[List[Any]] = None
+    contacts: Optional[List[Dict[str, Any]]] = None
     billing_address: Optional[CustomerDTOBillingAddress] = Field(default=None, alias="billingAddress")
     shipping_address: Optional[CustomerDTOBillingAddress] = Field(default=None, alias="shippingAddress")
     __properties: ClassVar[List[str]] = ["name", "accountName", "securityQuestion", "securityAnswer", "shipToBillAddress", "contacts", "billingAddress", "shippingAddress"]

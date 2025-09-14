@@ -52,8 +52,8 @@ with jasperclient.ApiClient(configuration) as api_client:
     metrics = ['metrics_example'] # List[str] | Metrics. Example: data,sms,voice,smt,smo,vmo,vmt. Accepts list of string. (optional)
     sorted_by = 'account' # str | Sorted By. Example: account, data, sms, voice, smt, smo, vmt, vmo (optional) (default to 'account')
     sort_direction = 'desc' # str | Sort Direction (optional) (default to 'desc')
-    page_number = 56 # int | Page Number (optional)
-    page_size = 56 # int | Page Size (optional)
+    page_number = 1 # int | Page Number (optional) (default to 1)
+    page_size = 50 # int | Page Size (optional) (default to 50)
 
     try:
         # Return list of Aggregated Usage Details Group by Carrier, Country, RatePlan, RatingZone for given account.
@@ -77,8 +77,8 @@ Name | Type | Description  | Notes
  **metrics** | [**List[str]**](str.md)| Metrics. Example: data,sms,voice,smt,smo,vmo,vmt. Accepts list of string. | [optional] 
  **sorted_by** | **str**| Sorted By. Example: account, data, sms, voice, smt, smo, vmt, vmo | [optional] [default to &#39;account&#39;]
  **sort_direction** | **str**| Sort Direction | [optional] [default to &#39;desc&#39;]
- **page_number** | **int**| Page Number | [optional] 
- **page_size** | **int**| Page Size | [optional] 
+ **page_number** | **int**| Page Number | [optional] [default to 1]
+ **page_size** | **int**| Page Size | [optional] [default to 50]
 
 ### Return type
 

@@ -48,8 +48,8 @@ with jasperclient.ApiClient(configuration) as api_client:
     api_version = '1' # str | Defaults to 1 (default to '1')
     from_date = 'from_date_example' # str | If this is not specified, most recent 2 location records will be returned. </br> The format is yyyy-MM-ddTHH:mm:ssZ </br> Eg: 2018-07-18T17:31:34+00:00 (optional)
     to_date = 'to_date_example' # str | If this is not specified, location history up until the current date will be returned. </br> The format is yyyy-MM-ddTHH:mm:ssZ </br> Eg: 2018-07-18T17:31:34+00:00 (optional)
-    page_size = 56 # int | Maximum of 50, defaults to 50 (optional)
-    page_number = 56 # int | Defaults to 1 (optional)
+    page_size = 50 # int | Maximum of 50, defaults to 50 (optional) (default to 50)
+    page_number = 1 # int | Defaults to 1 (optional) (default to 1)
 
     try:
         # Get Device Location History during a specified time frame.
@@ -69,8 +69,8 @@ Name | Type | Description  | Notes
  **api_version** | **str**| Defaults to 1 | [default to &#39;1&#39;]
  **from_date** | **str**| If this is not specified, most recent 2 location records will be returned. &lt;/br&gt; The format is yyyy-MM-ddTHH:mm:ssZ &lt;/br&gt; Eg: 2018-07-18T17:31:34+00:00 | [optional] 
  **to_date** | **str**| If this is not specified, location history up until the current date will be returned. &lt;/br&gt; The format is yyyy-MM-ddTHH:mm:ssZ &lt;/br&gt; Eg: 2018-07-18T17:31:34+00:00 | [optional] 
- **page_size** | **int**| Maximum of 50, defaults to 50 | [optional] 
- **page_number** | **int**| Defaults to 1 | [optional] 
+ **page_size** | **int**| Maximum of 50, defaults to 50 | [optional] [default to 50]
+ **page_number** | **int**| Defaults to 1 | [optional] [default to 1]
 
 ### Return type
 
