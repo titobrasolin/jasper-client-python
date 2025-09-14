@@ -2,140 +2,171 @@ type: object
 properties:
   iccid:
     type: string
-    description: ICCID del dispositivo.
+    description: The ICCID of the device.
   imsi:
     type: string
-    description: IMSI del dispositivo.
+    description: The device IMSI.
   msisdn:
     type: string
-    description: MSISDN o numero di telefono del dispositivo.
+    description: The device MSISDN or phone number.
   imei:
     type: string
-    description: IMEI del dispositivo.
+    description: The device IMEI.
   status:
     type: string
-    description: Stato SIM del dispositivo.
+    description: The device SIM status.
   ratePlan:
     type: string
-    description: Nome del piano tariffario associato al dispositivo.
+    description: The name of the rate plan associated with the device.
   communicationPlan:
     type: string
-    description: Nome del piano di comunicazione associato al dispositivo.
+    description: The name of the communication plan associated with the device.
   customer:
     type: string
-    description: Nome del cliente (in genere un'azienda o una business unit), eventualmente associato a questo dispositivo.
+    description: The name of the customer (generally an enterprise or business unit), if any, associated with this device.
     nullable: true
   endConsumerId:
     type: string
-    description: ID della persona eventualmente associata a questo dispositivo.
+    description: The ID of the person, if any, associated with this device.
     nullable: true
   dateActivated:
     type: string
     format: date-time
-    description: Data di attivazione del dispositivo.
+    description: The date when the device was first activated.
   dateAdded:
     type: string
     format: date-time
-    description: Data in cui il dispositivo è stato aggiunto.
+    description: The date when the device was added.
   dateUpdated:
     type: string
     format: date-time
-    description: Data in cui si ha avuto luogo l'ultimo aggiornamento delle informazioni relative al dispositivo.
+    description: The date when the last device information update occurred.
   dateShipped:
     type: string
     format: date-time
-    description: Data in cui la SIM del dispositivo è stata trasferita dal magazzino del provider di servizi all'Account aziendale.
+    description: The date when the device SIM was transferred from the operator inventory into the enterprise account.
   accountId:
     type: string
-    description: ID dell'account aziendale eventualmente associato al dispositivo.
+    description: The ID of the enterprise account associated with the device.
   fixedIPAddress:
     type: string
     format: ipv4
-    description: L'indirizzo IPv4 assegnato al dispositivo.
+    description: The IPv4 address assigned to the device. This field may be null if the device communication plan uses dynamic IP addresses or if the device uses an IPv6 address instead.
     nullable: true
   fixedIpv6Address:
     type: string
     format: ipv6
-    description: L'indirizzo IPv6 assegnato al dispositivo.
+    description: The IPv6 address assigned to the device. This field may be null if the device communication plan uses dynamic IP addresses or if the device uses an IPv4 address instead.
     nullable: true
   operatorCustom1:
     type: string
-    description: Valore per il campo personalizzato 1 del dispositivo creato dal provider di servizi.
+    description: Value for custom device field 1 created by the operator.
   operatorCustom2:
     type: string
-    description: Valore per il campo personalizzato 2 del dispositivo creato dal provider di servizi.
+    description: Value for custom device field 2 created by the operator.
   operatorCustom3:
     type: string
-    description: Valore per il campo personalizzato 3 del dispositivo creato dal provider di servizi.
+    description: Value for custom device field 3 created by the operator.
   operatorCustom4:
     type: string
-    description: Valore per il campo personalizzato 4 del dispositivo creato dal provider di servizi.
+    description: Value for custom device field 4 created by the operator.
   operatorCustom5:
     type: string
-    description: Valore per il campo personalizzato 5 del dispositivo creato dal provider di servizi.
+    description: Value for custom device field 5 created by the operator.
   accountCustom1:
     type: string
-    description: Valore per il campo personalizzato 1 del dispositivo creato dall'azienda.
+    description: Value for custom device field 1 created by the enterprise.
   accountCustom2:
     type: string
-    description: Valore per il campo personalizzato 2 del dispositivo creato dall'azienda.
+    description: Value for custom device field 2 created by the enterprise.
   accountCustom3:
     type: string
-    description: Valore per il campo personalizzato 3 del dispositivo creato dall'azienda.
+    description: Value for custom device field 3 created by the enterprise.
   accountCustom4:
     type: string
-    description: Valore per il campo personalizzato 4 del dispositivo creato dall'azienda.
+    description: Value for custom device field 4 created by the enterprise.
   accountCustom5:
     type: string
-    description: Valore per il campo personalizzato 5 del dispositivo creato dall'azienda.
+    description: Value for custom device field 5 created by the enterprise.
   accountCustom6:
     type: string
-    description: Valore per il campo personalizzato 6 del dispositivo creato dall'azienda.
+    description: Value for custom device field 6 created by the enterprise.
   accountCustom7:
     type: string
-    description: Valore per il campo personalizzato 7 del dispositivo creato dall'azienda.
+    description: Value for custom device field 7 created by the enterprise.
   accountCustom8:
     type: string
-    description: Valore per il campo personalizzato 8 del dispositivo creato dall'azienda.
+    description: Value for custom device field 8 created by the enterprise.
   accountCustom9:
     type: string
-    description: Valore per il campo personalizzato 9 del dispositivo creato dall'azienda.
+    description: Value for custom device field 9 created by the enterprise.
   accountCustom10:
     type: string
-    description: Valore per il campo personalizzato 10 del dispositivo creato dall'azienda.
+    description: Value for custom device field 10 created by the enterprise.
   customerCustom1:
     type: string
-    description: Valore per il campo personalizzato 1 del dispositivo creato dal cliente.
+    description: Value for custom device field 1 created by the customer.
   customerCustom2:
     type: string
-    description: Valore per il campo personalizzato 2 del dispositivo creato dal cliente.
+    description: Value for custom device field 2 created by the customer.
   customerCustom3:
     type: string
-    description: Valore per il campo personalizzato 3 del dispositivo creato dal cliente.
+    description: Value for custom device field 3 created by the customer.
   customerCustom4:
     type: string
-    description: Valore per il campo personalizzato 4 del dispositivo creato dal cliente.
+    description: Value for custom device field 4 created by the customer.
   customerCustom5:
     type: string
-    description: Valore per il campo personalizzato 5 del dispositivo creato dal cliente.
+    description: Value for custom device field 5 created by the customer.
   simNotes:
     type: string
-    description: Informazioni che il provider di servizi ha aggiunto sul dispositivo.
+    description: Information the operator has added about the device.
     nullable: true
   deviceID:
     type: string
-    description: Identificatore facoltativo che un account o un cliente può assegnare a un dispositivo.
+    description: Optional identifier that an account or customer can give to a device.
     nullable: true
   modemID:
     type: string
-    description: Identifica il modem utilizzato dal dispositivo per trasmettere dati.
+    description: Identifies the modem used by the device to transmit data.
   globalSimType:
     type: string
-    description: Indica se il dispositivo utilizza una SIM principale o una sottoscrizione virtuale di un partner (per funzionalità Global SIM).
+    description: For enterprises taking advantage of Control Center's Global SIM feature, this value indicates whether the device is using a primary SIM from the lead operator or a virtual subscription from a partner operator.
   eid:
     type: string
-    description: Identificatore eSIM che associa un profilo in Control Center con un'eSIM.
+    description: An eSIM identifier that associates a profile in Control Center with an eSIM.
     nullable: true
   simProfileId:
     type: string
-    description: Un identificativo che definisce il tipo di SIM fornito dal produttore.
+    description: An identifier that defines the type of SIM provided by the manufacturer.
+  example:
+    iccid: "8988216716970004975"
+    imsi: "901161697004975"
+    msisdn: "882351697004975"
+    imei: ""
+    status: "ACTIVATED"
+    ratePlan: "hphlr rp1"
+    communicationPlan: "CP_Basic_ON"
+    customer: null
+    endConsumerId: null
+    dateActivated: "2016-06-29 00:21:33.339+0000"
+    dateAdded: "2014-07-22 23:31:46.571+0000"
+    dateUpdated: "2016-07-06 22:04:04.380+0000"
+    dateShipped: "2016-06-27 07:00:00.000+0000"
+    accountId: "100020620"
+    fixedIPAddress: null
+    fixedIpv6Address: null
+    accountCustom1: "78"
+    accountCustom2: ""
+    accountCustom3: ""
+    accountCustom4: ""
+    accountCustom5: ""
+    accountCustom6: ""
+    accountCustom7: ""
+    accountCustom8: ""
+    accountCustom9: ""
+    accountCustom10: ""
+    simNotes: null
+    deviceID: null
+    modemID: "2221"
+    globalSimType: ""
